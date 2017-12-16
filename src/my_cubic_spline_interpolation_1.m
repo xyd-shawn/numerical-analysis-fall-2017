@@ -1,7 +1,7 @@
 function [m, y, yy] = my_cubic_spline_interpolation_1(f, x, xx)
-% ʵ��������Ȼ������ֵ����
-% ����:fΪ���庯��,xΪ��ֵ����,xxΪҪ��Ĳ�ֵ����ֵ��,Ҫ��x��������
-% ���:mΪ��ֵ�����Ӧ��һ�׵���,yΪ��ֵ����ĺ���ֵ,yyΪ��ֵ������Ӧxx�ĺ���ֵ
+% 实现三次自然样条插值函数
+% 输入: f为被插函数，x为插值基点，xx为所要求的插值函数值点，要求x升序排列
+% 输出: m为插值基点对应的一阶导数，y为插值基点的函数值，yy为插值函数对应xx的函数值
 n = length(x);
 if size(x, 2) == n
     x = x';
@@ -17,7 +17,7 @@ la(2:(n-1)) = 1 - mu(2:(n-1));
 d(2:(n-1)) = 3 * (df(1:(n-2)) .* mu(2:(n-1)) + df(2:(n-1)) .* la(2:(n-1)));
 d(1) = 3 * df(1);
 d(n) = 3 * df(n-1);
-A = zeros(n);    % �������Խ�ϵ������
+A = zeros(n);    % 构造三对角系数矩阵
 for i = 1:(n-1)
     A(i, i+1) = la(i);
     A(i+1, i) = mu(i+1);
